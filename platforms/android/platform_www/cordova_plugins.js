@@ -247,6 +247,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
+      "id": "cordova-plugin-android-permissions.Permissions",
+      "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+      "pluginId": "cordova-plugin-android-permissions",
+      "clobbers": [
+        "cordova.plugins.permissions"
+      ]
+    },
+    {
       "id": "cordova-plugin-camera.Camera",
       "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
       "pluginId": "cordova-plugin-camera",
@@ -349,6 +357,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
+      "id": "cordova-sqlite-storage.SQLitePlugin",
+      "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+      "pluginId": "cordova-sqlite-storage",
+      "clobbers": [
+        "SQLitePlugin"
+      ]
+    },
+    {
       "id": "onesignal-cordova-plugin.OneSignal",
       "file": "plugins/onesignal-cordova-plugin/www/OneSignal.js",
       "pluginId": "onesignal-cordova-plugin",
@@ -360,6 +376,8 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
   module.exports.metadata = {
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-advanced-http": "3.1.0",
+    "cordova-plugin-android-permissions": "1.1.2",
+    "cordova-plugin-androidx": "3.0.0",
     "cordova-plugin-androidx-adapter": "1.1.3",
     "cordova-plugin-camera": "4.1.0",
     "cordova-plugin-device": "2.0.2",
@@ -371,6 +389,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
+    "cordova-sqlite-storage": "5.1.0",
     "onesignal-cordova-plugin": "2.11.3"
   };
 });

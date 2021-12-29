@@ -1,12 +1,3 @@
-/*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : ionic 5 foodies app
-  Created : 28-Feb-2021
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2020-present initappz.
-*/
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -21,6 +12,7 @@ export class OrdersPage implements OnInit {
   segId = 1;
   orders: any[] = [];
   oldOrders: any;
+  finish: any = [];
   dummy = Array(10);
   constructor(
     private router: Router,
@@ -50,18 +42,20 @@ export class OrdersPage implements OnInit {
   getOrders(event, haveRefresh) {
     this.orders = [];
     this.oldOrders = [];
+    this.finish = [];
     const param = {
       id: localStorage.getItem('uid')
     };
     this.api.post('orders/getByDriverId', param).then((data) => {
-      console.log(data);
       this.dummy = [];
       if (data && data.status === 200 && data.data.length) {
         data.data.forEach(element => {
           element.orders = JSON.parse(element.orders);
           if (element.status === 'entregada' || element.status === 'cancelada' || element.status === 'rechazada') {
+            this.finish.push(element);
+          } else if(element.status == 'en camino') {
             this.oldOrders.push(element);
-          } else {
+          }else{
             this.orders.push(element);
           }
         });
@@ -70,11 +64,9 @@ export class OrdersPage implements OnInit {
         }
       }
     }, error => {
-      console.log(error);
       this.dummy = [];
       this.util.errorToast('Algo ha ido mal');
     }).catch((error) => {
-      console.log(error);
       this.dummy = [];
       this.util.errorToast('Algo ha ido mal');
     });

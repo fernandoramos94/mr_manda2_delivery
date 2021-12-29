@@ -1,12 +1,3 @@
-/*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : ionic 5 foodies app
-  Created : 28-Feb-2021
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2020-present initappz.
-*/
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -48,6 +39,8 @@ export class OrderDetailPage implements OnInit {
   loaded: boolean;
   orderNotes: any = '';
   userInfo: any;
+  rest:any = {};
+  addresDeliveryCoord :any;
   constructor(
     private route: ActivatedRoute,
     public api: ApiService,
@@ -61,24 +54,20 @@ export class OrderDetailPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(data => {
-      console.log(data);
       this.tabId = data.id;
       this.id = data.id;
       this.myname = this.util.userInfo && this.util.userInfo.first_name ?
         this.util.userInfo.first_name + ' ' + this.util.userInfo.last_name : '';
-      console.log('my name', this.myname);
       this.getOrder();
     });
   }
 
   getOrder() {
 
-
     const param = {
       id: this.id
     };
     this.api.post('orders/getById', param).then((datas: any) => {
-      console.log({datas});
       this.loaded = true;
       if (datas && datas.status === 200 && datas.data.length) {
         const data = datas.data[0];
@@ -94,22 +83,32 @@ export class OrderDetailPage implements OnInit {
         this.orderNotes = data.notes;
         if (data && data.address && data.address !== '') {
           const addr = JSON.parse(data.address);
-          console.log(addr);
+          this.addresDeliveryCoord = addr;
           this.deliveryAddress = addr.house + ' ' + addr.landmark + ' ' + addr.address + ' ' + addr.pincode;
         }
         this.deliveryCharge = data.delivery_charge;
         this.getUserInfo(data.uid);
-
-        console.log('this', this.orders);
+        this.getRestInfo(this.restId);
         this.restName = data.str_name;
       }
     }, error => {
-      console.log('error in orders', error);
       this.loaded = true;
       this.util.errorToast('Algo ha ido mal');
     }).catch(error => {
-      console.log('error in order', error);
       this.loaded = true;
+      this.util.errorToast('Algo ha ido mal');
+    });
+  }
+
+  getRestInfo(id){
+    const param = {
+      id: id
+    };
+    this.api.post('stores/getByUid', param).then((data) => {
+      this.rest = data.data[0];
+    }, error => {
+      this.util.errorToast('Algo ha ido mal');
+    }).catch((error) => {
       this.util.errorToast('Algo ha ido mal');
     });
   }
@@ -120,23 +119,18 @@ export class OrderDetailPage implements OnInit {
     };
 
     this.api.post('users/getById', param).then((data) => {
-      console.log(data);
       if (data && data.status === 200 && data.data.length) {
         const info = data.data[0];
-        console.log('userinfo=====>>>', info);
         this.userInfo = info;
         this.username = info.first_name + ' ' + info.last_name;
         this.useremail = info.email;
         this.userphone = info.mobile;
         this.usercover = info.cover;
-        console.log('phone', this.userphone);
         this.token = info.fcm_token;
       }
     }, error => {
-      console.log(error);
       this.util.errorToast('Algo ha ido mal');
     }).catch((error) => {
-      console.log(error);
       this.util.errorToast('Algo ha ido mal');
     });
   }
@@ -149,21 +143,18 @@ export class OrderDetailPage implements OnInit {
 
     modal.onDidDismiss().then((data) => {
       if (data && data.role === 'ok') { // ok
-        console.log('normal delivery');
         const value = 'entregada';
         const param = {
           id: this.id,
           status: value,
         };
-        console.log('order param', param);
-        this.util.show('Por favor espera');        this.api.post('orders/editList', param).then((order) => {
-          console.log(order);
+        this.util.show('Por favor espera');        
+        this.api.post('orders/editList', param).then((order) => {
           if (order && order.status === 200) {
             const driverParam = {
               id: localStorage.getItem('uid'),
               current: 'active'
             };
-            console.log('driver param', driverParam);
             this.api.post('drivers/edit_profile', driverParam).then((driver) => {
               if (driver && driver.status === 200) {
                 this.util.hide();
@@ -200,11 +191,9 @@ export class OrderDetailPage implements OnInit {
             this.navCtrl.back();
           }
         }, error => {
-          console.log(error);
           this.util.hide();
           this.util.errorToast('Algo ha ido mal');
         }).catch(error => {
-          console.log(error);
           this.util.hide();
           this.util.errorToast('Algo ha ido mal');
         });
@@ -215,14 +204,11 @@ export class OrderDetailPage implements OnInit {
   }
 
   changeStatus(value) {
-    console.log(value);
     if (value === 'en camino') {
-      console.log('en camino....');
       const param = {
         id: this.id,
         status: value,
       };
-      console.log('order param', param);
       this.util.show('Por favor espera...');
       this.api.post('orders/editList', param).then((order) => {
         this.util.hide();
@@ -261,16 +247,13 @@ export class OrderDetailPage implements OnInit {
         id: this.id,
         status: value,
       };
-      console.log('order param', param);
       this.util.show('Por favor espera');
       this.api.post('orders/editList', param).then((order) => {
-        console.log(order);
         if (order && order.status === 200) {
           const driverParam = {
             id: localStorage.getItem('uid'),
             current: 'active'
           };
-          console.log('driver param', driverParam);
           this.api.post('drivers/edit_profile', driverParam).then((driver) => {
             if (driver && driver.status === 200) {
               this.util.hide();
@@ -292,11 +275,9 @@ export class OrderDetailPage implements OnInit {
               this.navCtrl.back();
             }
           }, error => {
-            console.log(error);
             this.util.hide();
             this.util.errorToast('Algo ha ido mal');
           }).catch(error => {
-            console.log(error);
             this.util.hide();
             this.util.errorToast('Algo ha ido mal');
           });
@@ -307,11 +288,9 @@ export class OrderDetailPage implements OnInit {
           this.navCtrl.back();
         }
       }, error => {
-        console.log(error);
         this.util.hide();
         this.util.errorToast('Algo ha ido mal');
       }).catch(error => {
-        console.log(error);
         this.util.hide();
         this.util.errorToast('Algo ha ido mal');
       });
@@ -319,47 +298,24 @@ export class OrderDetailPage implements OnInit {
   }
 
   changeOrderStatus() {
-    console.log('order status', this.changeStatusOrder);
     if (this.changeStatusOrder) {
       this.changeStatus(this.changeStatusOrder);
     }
   }
 
-  // goToTracker() {
-  //   const navData: NavigationExtras = {
-  //     queryParams: {
-  //       id: this.id
-  //     }
-  //   };
-  //   this.router.navigate(['/tracker'], navData);
-  // }
-
   goToTracker() {
-    this.api.post('orders/getById', { id: this.id }).then((response) => {
-      const data = response.data[0];
 
-      if (data && data.address && data.address !== '') {
-        const addr = JSON.parse(data.address);
-        const destination = `${addr.lat},${addr.lng}`;
+    const destination = `${this.rest.lat},${this.rest.lng}`;
 
-        window.open('https://waze.com/ul?ll='+destination+'&navigate=yes&z=10');
-      }
-    }).catch((err) => {});
+    window.open('https://waze.com/ul?ll='+destination+'&navigate=yes&z=10');
   }
 
   goToVenue() {
-    if (localStorage.getItem('lat') && localStorage.getItem('lng')) {
-      const destination = `${localStorage.getItem('lat')},${localStorage.getItem('lng')}`;
+    
+    const destination = `${this.addresDeliveryCoord.lat},${this.addresDeliveryCoord.lng}`; //`${localStorage.getItem('lat')},${localStorage.getItem('lng')}`;
 
-      window.open('https://waze.com/ul?ll='+destination+'&navigate=yes&z=10');
-    }
+    window.open('https://waze.com/ul?ll='+destination+'&navigate=yes&z=10');
   }
-
-
-
-
-
-
   
   call() {
     this.iab.create('tel:' + this.userphone, '_system')

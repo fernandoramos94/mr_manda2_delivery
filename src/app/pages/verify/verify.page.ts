@@ -43,14 +43,11 @@ export class VerifyPage implements OnInit {
 
   sendOTP() {
     this.mobile = this.navParam.get('code') + this.navParam.get('phone');
-    console.log('send on this number------<<<<<<<', this.mobile);
-    console.log(this.mobile);
     const message = this.util.translate('Your Foodies app verification code : ');
     const param = {
       msg: message,
       to: this.mobile
     };
-    console.log(param);
     this.util.show();
     this.api.post('users/twilloMessage', param).then((data: any) => {
       console.log(data);

@@ -94,7 +94,10 @@ export class ProfilePage implements OnInit {
   }
 
   reviews() {
-    console.log('review');
     this.router.navigate(['reviews']);
   }
+  back() {
+    this.navCtrl.back();
+  }
+
 }

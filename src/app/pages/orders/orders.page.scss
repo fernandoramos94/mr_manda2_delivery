@@ -1,19 +1,40 @@
-/*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : ionic 5 foodies app
-  Created : 28-Feb-2021
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2020-present initappz.
-*/
+@import url('https://fonts.googleapis.com/css?family=Niramit:300,300i,700');
+
+ion-content, ion-tabs, ion-tab-bar{
+    font-family: 'K2D', sans-serif;
+    --background: #00b3f0 !important;
+    letter-spacing: 1px;
+}
+ion-label{
+    color: white !important;
+    font-size: 14px;
+}
+ion-tabs{
+    top: auto !important;
+    height: 57px !important;
+}
+ion-tab-bar{
+    
+    color: white;
+    ion-tab-button {
+        ion-icon{
+            color: white;
+        }
+    }
+}
+.active{
+    border-bottom: white 3px solid;
+    ion-icon, ion-label{
+        //color:#00b3f0 !important;
+    }
+}
 .segment_div {
     display: flex;
     margin-top: 20px;
     border-bottom: 1px solid lightgray;
     justify-content: space-around;
     ion-label {
-        color: gray;
+        color: white;
         padding-bottom: 10px;
         width: 100%;
         text-align: center;
@@ -22,24 +43,29 @@
         border-bottom: 1px solid #00b3f0;
     }
 }
+h2{
+    color: white
+}
 .main_content_div {
     width: 100%;
     .centent_div {
         padding: 20px;
-
+        padding-bottom: 57px;
         ion-label {
             display: block;
         }
     }
 
     .card_div {
+        background: #6fcbfd !important;
         width: 100%;
         box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
         padding: 15px;
         margin-bottom: 20px;
-        border: 0.5px solid lightgray;
-
+        z-index: 999;
+        display: block;
+        position: relative;
         .line_div {
             height: 1px;
             width: 100%;
@@ -64,10 +90,10 @@
 
             .res_name {
                 font-weight: 600;
-                font-size: 14px;
+                font-size: 15px;
             }
             .res_location {
-                color: lightgray;
+                color: white;
                 font-size: 14px;
             }
 
@@ -85,7 +111,7 @@
             position: relative;
 
             .head_gray {
-                color: lightgray;
+                color: white;
                 font-size: 13px;
                 margin-top: 10px;
             }
@@ -113,7 +139,7 @@
                     justify-content: space-between;
                     .sub_name {
                         margin: 0px;
-                        color: black;
+                        color: white;
                         font-size: 12px;
                     }
                 }

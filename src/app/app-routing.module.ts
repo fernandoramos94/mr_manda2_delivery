@@ -13,7 +13,7 @@ import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
     canActivate: [AuthGuard]
   },
@@ -26,8 +26,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule)
   },
   {
-    path: 'orders',
-    loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersPageModule)
+    path: '',
+    loadChildren: () => import('./pages/orders/orders.module').then(m => m.OrdersPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'order-detail',

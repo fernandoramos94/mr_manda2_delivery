@@ -8,51 +8,60 @@
   },
   "installed_plugins": {
     "cordova-plugin-advanced-http": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.mrmandados.aliado"
+    },
+    "cordova-plugin-androidx": {
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-androidx-adapter": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-camera": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-geolocation": {
       "GPS_REQUIRED": "true",
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-inappbrowser": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-ionic-keyboard": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-ionic-webview": {
       "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-nativeaudio": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     },
     "onesignal-cordova-plugin": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     }
   },
   "dependent_plugins": {
     "cordova-plugin-file": {
-      "PACKAGE_NAME": "com.mrmandados.conductor"
+      "PACKAGE_NAME": "com.mrmandados.aliado"
     }
   }
 }

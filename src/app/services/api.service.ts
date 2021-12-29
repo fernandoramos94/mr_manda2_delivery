@@ -1,12 +1,4 @@
-/*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : ionic 5 foodies app
-  Created : 28-Feb-2021
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2020-present initappz.
-*/
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -104,7 +96,6 @@ export class ApiService {
           .set('Basic', `${environment.authToken}`)
       };
       const param = this.JSON_to_URLEncoded(body);
-      console.log(param);
       this.http.post(this.baseUrl + url, param, header).subscribe((data) => {
         resolve(data);
       }, error => {
@@ -146,7 +137,6 @@ export class ApiService {
   }
 
   nativePost(url, post) {
-    console.log(this.baseUrl + url, post);
     return this.nativeHttp.post(this.baseUrl + url, post, {
       Basic: `${environment.authToken}`
     });
@@ -169,7 +159,6 @@ export class ApiService {
         .set('Authorization', `Bearer ${key}`)
     };
     const order = this.JSON_to_URLEncoded(body);
-    console.log(order)
     return this.http.post(url, order, header);
   }
 }

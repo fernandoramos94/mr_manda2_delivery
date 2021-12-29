@@ -52,7 +52,6 @@ export class AppComponent {
           lng: longitude
         };
         this.api.post('drivers/getById', param).then((data: any) => {
-          console.log('*******************', data);
           if (data && data.status === 200 && data.data && data.data.length) {
             this.util.userInfo = data.data[0];
           }
@@ -87,7 +86,6 @@ export class AppComponent {
         text: this.util.translate('OK'),
         icon: 'volume-mute',
         handler: () => {
-          console.log('Delete clicked');
           this.nativeAudio.stop('audio').then(() => console.log('done'), () => console.log('error'));
         }
       }, {
@@ -95,7 +93,6 @@ export class AppComponent {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
           this.nativeAudio.stop('audio').then(() => console.log('done'), () => console.log('error'));
         }
       }]
@@ -106,14 +103,12 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#00b3f0');
       this.splashScreen.hide();
       if (this.platform.is('cordova')) {
-        console.log('platform is okk');
         setTimeout(async () => {
           await this.oneSignal.startInit(environment.onesignal.appId, environment.onesignal.googleProjectNumber);
           this.oneSignal.getIds().then((data) => {
-            console.log('-----------------------------------', data);
             localStorage.setItem('fcm', data.userId);
             const uid = localStorage.getItem('uid');
             if (uid && uid !== null && uid !== 'null') {
@@ -122,7 +117,6 @@ export class AppComponent {
                 fcm_token: data.userId
               };
               this.api.post('drivers/edit_profile', param).then((data: any) => {
-                console.log('user info=>', data);
               }, error => {
                 console.log(error);
               });
@@ -133,14 +127,10 @@ export class AppComponent {
         }, 1000);
 
         this.nativeAudio.preloadSimple('audio', 'assets/alert.mp3').then((data: any) => {
-          console.log('dupletx', data);
         }, error => {
-          console.log(error);
         }).catch(error => {
-          console.log(error);
         });
         this.oneSignal.handleNotificationReceived().subscribe(data => {
-          console.log('got order', data);
           this.nativeAudio.play('audio', () => console.log('audio is done playing')).catch(error => console.log(error));
           this.nativeAudio.setVolumeForComplexAsset('audio', 1);
           this.presentActionSheet();
@@ -151,7 +141,6 @@ export class AppComponent {
       const lng = localStorage.getItem('language');
       if (!lng || lng === null) {
         this.api.get('users/getDefaultSettings').then((data: any) => {
-          console.log('get default settings', data);
           if (data && data.status === 200 && data.data) {
             const manage = data.data.manage;
             const language = data.data.lang;
@@ -191,19 +180,12 @@ export class AppComponent {
             }
 
             const general = data.data.general;
-            console.log('generalllll============================>', general);
             if (general && general.length > 0) {
               const info = general[0];
               this.util.general = info;
             }
-            console.log('app is closed', this.util.appClosed);
           }
 
-          console.log(this.util.translations);
-          console.log(this.util.direction);
-          console.log(this.util.cside);
-          console.log(this.util.appClosed);
-          console.log(this.util.appClosedMessage);
         }, error => {
           console.log('default settings', error);
         });
@@ -212,7 +194,6 @@ export class AppComponent {
           id: localStorage.getItem('language')
         };
         this.api.post('users/getDefaultSettingsById', param).then((data: any) => {
-          console.log('get default settings by id', data);
           if (data && data.status === 200 && data.data) {
             const manage = data.data.manage;
             const language = data.data.lang;
@@ -232,7 +213,6 @@ export class AppComponent {
             }
 
             const settings = data.data.settings;
-            console.log('-->', settings);
             if (settings && settings.length > 0) {
               const info = settings[0];
               this.util.direction = info.appDirection;
@@ -244,7 +224,6 @@ export class AppComponent {
               this.util.user_login = info.driver_login;
               this.util.reset_pwd = info.reset_pwd;
               document.documentElement.dir = this.util.direction;
-              console.log('wont');
             } else {
               this.util.direction = 'ltr';
               this.util.cside = 'right';
@@ -253,22 +232,13 @@ export class AppComponent {
             }
 
             const general = data.data.general;
-            console.log('generalllll============================>', general);
             if (general && general.length > 0) {
               const info = general[0];
               this.util.general = info;
             }
-            console.log('app is closed', this.util.appClosed);
           }
 
-          console.log(this.util.translations);
-          console.log(this.util.direction);
-          console.log(this.util.cside);
-          console.log(this.util.appClosed);
-          console.log(this.util.appClosedMessage);
-
         }, error => {
-          console.log('default settings by id', error);
           this.util.appClosed = false;
           this.util.direction = 'ltr';
           this.util.cside = 'right';
@@ -283,12 +253,10 @@ export class AppComponent {
           id: uid
         };
         this.api.post('drivers/getById', param).then((data: any) => {
-          console.log('*******************', data);
           if (data && data.status === 200 && data.data && data.data.length) {
             this.util.userInfo = data.data[0];
           }
         }, error => {
-          console.log('==>>', error);
         });
       }
       this.getLocation();
